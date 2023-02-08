@@ -82,10 +82,10 @@ begin
 	test_process : process 
 	begin
 	
-		w_sw <= x"0"; wait for 10 ns;
-            assert w_led = "00" report "bad x0" severity failure;
-        w_sw <= x"1"; wait for 10 ns;
-            assert w_led = "01" report "bad x1" severity failure;
+		w_sw <= "000"; wait for 10 ns;
+            assert w_led = "00" report "bad 000" severity failure;
+        w_sw <= "001"; wait for 10 ns;
+            assert w_led = "01" report "bad 001" severity failure;
 		--You must fill in the remaining test cases.
 				
 	

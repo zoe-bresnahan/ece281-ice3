@@ -1,10 +1,12 @@
-# HelloLed
+# ECE 281 IEC 3: FullAdder with Top Level Design
 
-A minimal VHDL project designed to prove that you have **Vivado 2018.2** installed successfully.
+[ICE 3 instructions](https://usafa-ece.github.io/ece281-book/ICE/ICE3.html)
 
 Targeted toward Digilent Basys3. Make sure to install the [board files](https://github.com/Xilinx/XilinxBoardStore/tree/2018.2/boards/Digilent/basys3).
 
 Tested on Windows 10.
+
+---
 
 ## Build this project
 
