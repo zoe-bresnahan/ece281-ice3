@@ -1,0 +1,18 @@
+---
+name: GHDL Testbench
+on: [push]
+jobs:
+  Execute-Testbench:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup GHDL nightly
+        uses: ghdl/setup-ghdl-ci@nightly
+      - run: ghdl --version
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Execute the VHDL testbench
+        run: |
+          ghdl -a src/hdl/*.vhd # creates .o files in local dir
+          TB_ENTITIES=$(find . -maxdepth 1 -name "*_tb.o" -exec basename {} .o \;)
+          for ENTITY in $TB_ENTITIES; do echo elaborating $ENTITY; ghdl -e $ENTITY; done
+          for ENTITY in $TB_ENTITIES; do echo running $ENTITY;     ghdl -r $ENTITY; done
