@@ -1,4 +1,4 @@
-# ECE 281 IEC 3: FullAdder with Top Level Design
+# ECE 281 ICE 3: FullAdder with Top Level Design
 
 [ICE 3 instructions](https://usafa-ece.github.io/ece281-book/ICE/ICE3.html)
 
