@@ -17,9 +17,8 @@
 !cfg/
 !cfg/**/*.wcfg
 
-# don't ignore build files
-!build.tcl
-!build.bat
+# don't ignore XPR
+!*.xpr
 
 # don't ignore bitstream
 !*.runs/
