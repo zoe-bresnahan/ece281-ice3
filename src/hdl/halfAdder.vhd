@@ -1,6 +1,6 @@
 --+----------------------------------------------------------------------------
 --| 
---| COPYRIGHT 2018 United States Air Force Academy All rights reserved.
+--| COPYRIGHT 2017 United States Air Force Academy All rights reserved.
 --| 
 --| United States Air Force Academy     __  _______ ___    _________ 
 --| Dept of Electrical &               / / / / ___//   |  / ____/   |
@@ -10,15 +10,10 @@
 --| 
 --| ---------------------------------------------------------------------------
 --|
---| FILENAME      : top_basys3.vhd
---| AUTHOR(S)     : Capt Dan Johnson
---| CREATED       : 01/30/2019 Last Modified 06/24/2020
---| DESCRIPTION   : This file implements the top level module for a BASYS 3 to create a full adder
---|                 from two half adders.
---|
---|					Inputs:  sw (2:0) 	 --> 3-bit sw input (Sum bits and 1 cin)
---|							 
---|					Outputs: led (1:0)   --> sum output and carry out.
+--| FILENAME      : halfAdder.vhd
+--| AUTHOR(S)     : Capt Warner, Zoe Bresnahan
+--| CREATED       : 01/17/2017
+--| DESCRIPTION   : This file implements a one bit half adder.
 --|
 --| DOCUMENTATION : None
 --|
@@ -27,8 +22,8 @@
 --| REQUIRED FILES :
 --|
 --|    Libraries : ieee
---|    Packages  : std_logic_1164, numeric_std
---|    Files     : sevenSegDecoder.vhd
+--|    Packages  : std_logic_1164, numeric_std, unisim
+--|    Files     : LIST ANY DEPENDENCIES
 --|
 --+----------------------------------------------------------------------------
 --|
@@ -56,53 +51,27 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
+-- entity name should match filename  
+entity halfAdder is 
+  port(
+	i_A     : in  std_logic; -- 1-bit input port
+	i_B     : in  std_logic; 
+	o_S     : out std_logic;  -- 1-bit output port
+							 -- (NOTE: NO semicolon on LAST port only!)
+	-- TODO:  Carry port
+	o_Cout  : out std_logic
+  ); -- the semicolon is here instead
+end halfAdder;
 
-entity top_basys3 is
-	port(
-		-- Switches
-		sw		:	in  std_logic_vector(2 downto 0);
-		
-		-- LEDs
-		led	    :	out	std_logic_vector(1 downto 0)
-	);
-end top_basys3;
-
-architecture top_basys3_arch of top_basys3 is 
-	
-  -- declare the component of your top-level design 
-    component halfAdder is
-      port (
-          i_A : in std_logic;
-          i_B : in std_logic;
-          o_S : out std_logic;
-          o_Cout : out std_logic
-          );
-      end component halfAdder;
-  -- declare any signals you will need	
-     signal w_S1 : std_logic;
-     signal w_Cout1 : std_logic;
-     signal w_Cout2 : std_logic;
-  
+architecture halfAdder_arch of halfAdder is 
+	-- this is where you would include components declarations and signals if you needed them
+	  
 begin
-	-- PORT MAPS --------------------
-    halfAdder1_inst: halfAdder
-       port map(
-           i_A     => sw(0),
-           i_B     => sw(1),
-           o_S     => w_S1,
-           o_Cout  => w_Cout1
-       );
-   
-     halfAdder2_inst: halfAdder
-       port map(
-           i_A     =>  w_S1,
-           i_B     =>  sw(2),
-           o_S     =>  led(0),
-           o_Cout  =>  w_Cout2
-       );
-	---------------------------------
+	-- this is where you would map ports for any component instantiations if you needed to
+
+	-- *concurrent* signal assignments
+	o_S    <= i_A xor i_B;
+	-- TODO:  Carry signal assignment
+	o_Cout <= i_A and i_B;
 	
-	-- CONCURRENT STATEMENTS --------
-	 led(1) <= w_Cout1 OR w_Cout2;
-	---------------------------------
-end top_basys3_arch;
+end halfAdder_arch;
